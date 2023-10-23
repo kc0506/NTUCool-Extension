@@ -1,0 +1,47 @@
+.__COOL_btn-wrapper {
+   margin: 0 8px;
+   display: flex;
+   justify-content: center;
+   /* align-self: stretch;
+   align-items: flex-start; */
+   align-items: center;
+
+   --inactive: #999999;
+   --active: #0099cc;
+}
+
+.__COOL_btn-wrapper svg {
+   /* rotate: -20deg; */
+   scale: 0.8 0.8;
+   /* opacity: 0; */
+   fill: var(--inactive);
+
+   cursor: pointer;
+   transition: opacity 0.15s ease;
+}
+
+.ic-announcement-row:hover svg,
+.ic-announcement-row:has(*:hover) .__COOL_pin-wrapper svg {
+   opacity: 1;
+}
+
+/* Pin buttons */
+.__COOL_pinned .__COOL_pin-btn svg {
+   fill: var(--active);
+   opacity: 1;
+}
+
+/* Hide buttons */
+
+.__COOL_hidden {
+   opacity: 0.5 !important;
+}
+
+.__COOL_hide-btn--active,
+.__COOL_hidden .__COOL_hide-btn--inactive {
+   display: none;
+}
+
+.__COOL_hidden .__COOL_hide-btn--active {
+   display: flex;
+}

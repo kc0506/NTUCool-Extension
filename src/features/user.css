@@ -1,0 +1,9 @@
+#search_input_container span:has(.__COOL_fake-input:focus)::before {
+   opacity: 1 !important;
+   transform: scale(1) !important;
+}
+
+.invisible{
+   display: none;
+}
+

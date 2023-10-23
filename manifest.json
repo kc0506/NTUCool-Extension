@@ -1,0 +1,33 @@
+{
+	"name": "Cooler Extension",
+	"description": "A simple extension for cooler NTU Cool",
+	"version": "1.0",
+	"manifest_version": 3,
+	"action": {
+		"default_title": "Cooler",
+		"default_icon": "icons/icon.png"
+	},
+	"icons": {
+		"16": "icons/icon.png",
+		"32": "icons/icon.png",
+		"48": "icons/icon.png",
+		"128": "icons/icon.png"
+	},
+	"permissions": [
+		"storage"
+	],
+	"host_permissions": [],
+	"content_scripts": [
+		{
+			"js": [
+				"dist/content.js"
+			],
+			"css": [
+				"dist/main.css"
+			],
+			"matches": [
+				"https://cool.ntu.edu.tw/*"
+			]
+		}
+	]
+}
