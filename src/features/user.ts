@@ -5,19 +5,19 @@ import { waitUntil } from "../utils";
 
 const cache = new Map<string, [string, string]>();
 function getUserName(ele: HTMLElement) {
-   if (cache.has(ele.id)) return cache.get(ele.id)!;
+    if (cache.has(ele.id)) return cache.get(ele.id)!;
 
-   const text = ele.querySelector(".roster_user_name ")!.textContent!.replace(/\s/g, "");
-   // console.log(text);
+    const text = ele.querySelector(".roster_user_name ")!.textContent!.replace(/\s/g, "");
+    // console.log(text);
 
-   const match = text.match(/([^()]+)(\((.+)\))?/);
-   if (!match) throw `User ${ele} cannot get name!`;
+    const match = text.match(/([^()]+)(\((.+)\))?/);
+    if (!match) throw `User ${ele} cannot get name!`;
 
-   const nameCN = match[1];
-   const nameEN = match[3] ?? "";
+    const nameCN = match[1];
+    const nameEN = match[3] ?? "";
 
-   cache.set(ele.id, [nameCN, nameEN]);
-   return [nameCN, nameEN];
+    cache.set(ele.id, [nameCN, nameEN]);
+    return [nameCN, nameEN];
 }
 
 let loadingIndicatorFlag = false;
@@ -26,90 +26,90 @@ let lastUserCount: number;
 const maxLoadingTimeout = 700; // Considered loaded if userCount hasn't change for 1 sec.
 
 function isLoaded(doc: Document) {
-   // TODO: This loading flag may be insufficient.
+    // TODO: This loading flag may be insufficient.
 
-   const loader: HTMLElement = doc.querySelector(".paginatedLoadingIndicator")!;
-   if (loader && loader.style.display === "none") loadingIndicatorFlag = true;
+    const loader: HTMLElement = doc.querySelector(".paginatedLoadingIndicator")!;
+    if (loader && loader.style.display === "none") loadingIndicatorFlag = true;
 
-   // TODO: Is there better way to trigger user loading?
-   // * UPDATE: Seems to be unecessary?
-   // doc.querySelector("tbody")?.lastElementChild!.scrollIntoView();
-   const currentUserCount = doc.querySelectorAll(".rosterUser").length;
+    // TODO: Is there better way to trigger user loading?
+    // * UPDATE: Seems to be unecessary?
+    // doc.querySelector("tbody")?.lastElementChild!.scrollIntoView();
+    const currentUserCount = doc.querySelectorAll(".rosterUser").length;
 
-   const currentTime = Date.now();
-   if (!lastChangeTime || lastUserCount != currentUserCount) {
-      lastChangeTime = currentTime;
-      lastUserCount = currentUserCount;
-   }
+    const currentTime = Date.now();
+    if (!lastChangeTime || lastUserCount != currentUserCount) {
+        lastChangeTime = currentTime;
+        lastUserCount = currentUserCount;
+    }
 
-   const delta = currentTime - lastChangeTime;
-   const flag =
-      !!document.querySelector("#search_input_container input") &&
-      loadingIndicatorFlag &&
-      delta > maxLoadingTimeout;
+    const delta = currentTime - lastChangeTime;
+    const flag =
+        !!document.querySelector("#search_input_container input") &&
+        loadingIndicatorFlag &&
+        delta > maxLoadingTimeout;
 
-   // const table = doc.querySelector("tbody");
-   if (flag) {
-      window.scrollTo(0, 0);
-      // console.log(currentUserCount)
-   } else {
-   }
+    // const table = doc.querySelector("tbody");
+    if (flag) {
+        window.scrollTo(0, 0);
+        // console.log(currentUserCount)
+    } else {
+    }
 
-   return flag;
+    return flag;
 }
 
 async function fixUserSearch() {
-   await waitUntil(document, isLoaded);
+    await waitUntil(document, isLoaded);
 
-   // TODO: Cloned input should remeber the value at this time.
-   const input = document.querySelector("#search_input_container input")!;
-   const clone = input.cloneNode() as HTMLInputElement;
-   clone.classList.add("__COOL_fake-input");
-   clone.id = "";
-   clone.addEventListener("input", (e) => {
-      handleSearchName((e.target! as HTMLInputElement).value);
-   });
+    // TODO: Cloned input should remeber the value at this time.
+    const input = document.querySelector("#search_input_container input")!;
+    const clone = input.cloneNode() as HTMLInputElement;
+    clone.classList.add("__COOL_fake-input");
+    clone.id = "";
+    clone.addEventListener("input", (e) => {
+        handleSearchName((e.target! as HTMLInputElement).value);
+    });
 
-   // users.forEach((node) => {
-   //    if (node instanceof HTMLElement) getUserName(node);
-   // });
-   function handleSearchName(name: string) {
-      const users = document.querySelectorAll(".rosterUser");
-      name = name.replace(/\s/g, "");
+    // users.forEach((node) => {
+    //    if (node instanceof HTMLElement) getUserName(node);
+    // });
+    function handleSearchName(name: string) {
+        const users = document.querySelectorAll(".rosterUser");
+        name = name.replace(/\s/g, "");
 
-      let cnt = 0;
-      users.forEach((node) => {
-         if (node instanceof HTMLElement) {
-            const [nameCN, nameEN] = getUserName(node);
-            if (nameCN.includes(name) || nameEN.toLowerCase().includes(name.toLowerCase())) {
-               cnt++;
-               if (node.classList.contains("invisible")) node.classList.remove("invisible");
-               // console.log(nameCN, nameEN, name);
-            } else node.classList.add("invisible");
-         }
-      });
-      if (cnt === 0) {
-         emptyStateElement.style.display = "block";
-         document.querySelector("table")!.style.display = "none";
-      } else {
-         emptyStateElement.style.display = "none";
-         document.querySelector("table")!.style.display = "table";
-      }
-   }
+        let cnt = 0;
+        users.forEach((node) => {
+            if (node instanceof HTMLElement) {
+                const [nameCN, nameEN] = getUserName(node);
+                if (nameCN.includes(name) || nameEN.toLowerCase().includes(name.toLowerCase())) {
+                    cnt++;
+                    if (node.classList.contains("invisible")) node.classList.remove("invisible");
+                    // console.log(nameCN, nameEN, name);
+                } else node.classList.add("invisible");
+            }
+        });
+        if (cnt === 0) {
+            emptyStateElement.style.display = "block";
+            document.querySelector("table")!.style.display = "none";
+        } else {
+            emptyStateElement.style.display = "none";
+            document.querySelector("table")!.style.display = "table";
+        }
+    }
 
-   document.querySelector("[data-view='users']")?.appendChild(emptyStateElement);
-   emptyStateElement.style.display = "none";
+    document.querySelector("[data-view='users']")?.appendChild(emptyStateElement);
+    emptyStateElement.style.display = "none";
 
-   input.replaceWith(clone);
+    input.replaceWith(clone);
 }
 
 function userFeatureFn() {
-   fixUserSearch();
+    fixUserSearch();
 }
 
 const userFeature: Feature = {
-   route: /\/courses\/\d+\/users$/,
-   fn: userFeatureFn,
+    routes: /\/courses\/\d+\/users$/,
+    fn: userFeatureFn,
 };
 
 export default userFeature;

@@ -23,11 +23,17 @@
 				"dist/content.js"
 			],
 			"css": [
-				"dist/main.css"
+				"dist/content.css"
 			],
 			"matches": [
-				"https://cool.ntu.edu.tw/*"
+				"https://cool.ntu.edu.tw/*",
+				"https://adfs.ntu.edu.tw/*",
+				"https://web2.cc.ntu.edu.tw/*",
+				"https://if163.aca.ntu.edu.tw/*",
+				"https://ntumail.cc.ntu.edu.tw/*",
+				"https://wmail1.cc.ntu.edu.tw/rc/index.php"
 			]
 		}
-	]
+	],
+	"options_page": "dist/options.html"
 }
