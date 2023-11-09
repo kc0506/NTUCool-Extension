@@ -1,0 +1,1 @@
+(()=>{"use strict";var e;null===(e=document.querySelector("#submit"))||void 0===e||e.addEventListener("click",(e=>{const c=document.querySelector("#account").value,t=document.querySelector("#password").value;chrome.storage.local.set({account:c,password:t})}))})();

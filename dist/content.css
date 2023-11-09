@@ -1,0 +1,169 @@
+.__COOL_btn-wrapper {
+   margin: 0 8px;
+   display: flex;
+   justify-content: center;
+   /* align-self: stretch;
+   align-items: flex-start; */
+   align-items: center;
+
+   --inactive: #999999;
+   --active: #0099cc;
+}
+
+.__COOL_btn-wrapper svg {
+   /* rotate: -20deg; */
+   scale: 0.8 0.8;
+   /* opacity: 0; */
+   fill: var(--inactive);
+
+   cursor: pointer;
+   transition: opacity 0.15s ease;
+}
+
+.ic-announcement-row:hover svg,
+.ic-announcement-row:has(*:hover) .__COOL_pin-wrapper svg {
+   opacity: 1;
+}
+
+/* Pin buttons */
+.__COOL_pinned .__COOL_pin-btn svg {
+   fill: var(--active);
+   opacity: 1;
+}
+
+/* Hide buttons */
+
+.__COOL_hidden {
+   opacity: 0.5 !important;
+}
+
+.__COOL_hide-btn--active,
+.__COOL_hidden .__COOL_hide-btn--inactive {
+   display: none;
+}
+
+.__COOL_hidden .__COOL_hide-btn--active {
+   display: flex;
+}
+
+/* html,
+body {
+   scroll-behavior: smooth;
+} */
+
+.__COOL_btn-icon {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   --color: gray;
+   --duration: 0.1s;
+
+   transition: transform var(--duration) linear;
+}
+
+.__COOL_btn-icon:hover {
+   transform: scale(1.2, 1.2);
+   --color: var(--ic-link-color); /* defined by NTU Cool */
+}
+
+.__COOL_btn-icon svg {
+   fill: var(--color);
+   height: 24px;
+   width: 24px;
+   transition: fill var(--duration) linear;
+}
+
+.ig-row {
+   gap: 12px;
+}
+
+.ig-info {
+   margin: 0 !important;
+   flex-grow: 0 !important;
+   flex-basis: fit-content !important;
+}
+.ig-info * {
+   padding: 0 !important;
+}
+
+.module-item-status-icon {
+   display: none;
+}
+
+.__COOL_btn-download-all {
+   color: var(--ic-link-color);
+   position: absolute;
+   top: 50%;
+   right: 15px;
+   transform: translate(0, -50%);
+
+   cursor: pointer;
+   transition: opacity 0.5s ease;
+}
+
+.__COOL_btn-download-all:hover {
+   text-decoration: underline;
+}
+
+.__COOL_btn-download-all.disabled {
+   text-decoration: none;
+   pointer-events: none;
+   cursor: default;
+   opacity: 0.35;
+}
+
+#right-side .button-sidebar-wide {
+   display: none !important;
+}
+
+.ic-app-header__logomark-container {
+   padding: 0 7px !important;
+ 
+}
+.ic-app-header__logomark:focus {
+   box-shadow: none !important;
+}
+
+/* Sider icon fix */
+#context_external_tool_174_menu_item img,
+#context_external_tool_258_menu_item img {
+   display: none;
+}
+
+#context_external_tool_174_menu_item svg,
+#context_external_tool_258_menu_item svg {
+   animation: fly-in 0.2s normal forwards ease-in-out;
+}
+
+@keyframes fly-in {
+   from {
+      translate: -100% 0;
+   }
+   to {
+      translate: 0 0;
+   }
+}
+
+body.primary-nav-transitions .menu-item__text {
+   transition-delay: 0.1s !important;
+}
+
+/* Dashboard card style */
+.ic-DashboardCard {
+   box-shadow: 0 4px 13px 0px rgba(50, 50, 50, 0.2) !important;
+   transition: all 0.15s ease;
+}
+
+.ic-DashboardCard:hover {
+   box-shadow: 0 4px 13px 0px rgba(50, 50, 50, 0.35) !important;
+   transform: scale(1.015);
+}
+
+.ic-DashboardCard__link:hover {
+   text-decoration: none;
+}
+
+
+.right-side-list, #planner-todosidebar-item-list {
+   display: none;
+}
