@@ -8,7 +8,9 @@ module.exports = {
     entry: {
         content: { import: "./src/content.ts", filename: "content.js" },
         options: "./src/options.ts",
+        "service-worker": "./src/serviceWorker.ts",
     },
+    devtool: 'source-map', 
     module: {
         rules: [
             {

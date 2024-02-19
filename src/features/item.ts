@@ -46,17 +46,21 @@ function getHeaders() {
 }
 
 const validItemTypes: Capitalize<ItemType>[] = ["Attachment"];
+const itemTypeCN: Partial<Record<ItemType, string>> = { attachment: "附件" };
 function getItemType(item: Item): ItemType {
     const title = item.querySelector("span.type_icon")?.getAttribute("title");
     for (const x of validItemTypes) {
-        if (x === title) return x.toLowerCase() as ItemType;
+        if (x === title || itemTypeCN[x.toLowerCase() as ItemType] === title)
+            return x.toLowerCase() as ItemType;
     }
     return "other";
 }
 
 async function handleAttachmentItem(item: Item) {
-    const a = item.querySelector<HTMLAnchorElement>("a.for-nvda")!;
-    const { ariaLabel: title, href } = a;
+    console.log("handle", item);
+
+    const a = item.querySelector<HTMLAnchorElement>("a.title")!;
+    const { title, href } = a;
 
     if (itemTitleSet.has(title!)) return;
     itemTitleSet.add(title!);
@@ -64,6 +68,7 @@ async function handleAttachmentItem(item: Item) {
     const resDocument = await getResponseDocument(href);
 
     const downloadHref = getDownloadHref(resDocument);
+    console.log(downloadHref);
     item.appendChild(iconBtnFactory(downloadHref, "下載文件", downloadIcon));
 }
 
@@ -79,6 +84,7 @@ function update() {
 }
 
 function iconBtnFactory(href: string, title: string, iconSVG: string) {
+    console.log("factory");
     const node = document.createElement("div");
     node.innerHTML = `
       <a download title='${title}' href=${href} class='__COOL_btn-icon'>
@@ -139,14 +145,18 @@ function itemFeatureFn() {
 
             downloadAllBtn.addEventListener("click", () => {
                 if (downloadAllBtn.classList.contains("disabled")) return;
+                console.log("click");
 
                 const _items = getItems(header.parentElement!);
+                console.log("items", _items);
                 const availableItems: Item[] = [];
                 _items.forEach((node) => {
                     if (isItem(node)) availableItems.push(node);
                 });
+                console.log(availableItems);
 
                 availableItems.forEach((_node) => {
+                    console.log(getItemType(_node));
                     if (isItem(_node) && getItemType(_node) === "attachment") {
                         _node.querySelector<HTMLElement>('a[title="下載文件"]')!.click();
                     }

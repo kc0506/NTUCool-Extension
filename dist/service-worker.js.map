@@ -1,0 +1,1 @@
+{"version":3,"file":"service-worker.js","mappings":"mBAAAA,QAAQC,IAAI,MACZD,QAAQC,IAAIC,OAAOC,K","sources":["webpack://ntucool-extension/./src/serviceWorker.ts"],"sourcesContent":["console.log(\"hi\");\r\nconsole.log(chrome.tabs)"],"names":["console","log","chrome","tabs"],"sourceRoot":""}

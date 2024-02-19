@@ -5,6 +5,7 @@ import userFeature from "./features/user";
 import loginFeature from "./login";
 
 import "./styles.css";
+import { waitUntil } from "./utils";
 
 type Feature = {
     routes: (RegExp | string)[] | RegExp | string;
@@ -26,12 +27,11 @@ features.forEach((feature) => {
     let matched = false;
     if (routes instanceof Array) {
         routes.forEach((route) => {
-            console.log(route);
+            // console.log(route);
             matched = matched || !!location.href.match(route);
         });
     } else matched = matched || !!location.href.match(routes);
     if (!matched) return;
-
 
     try {
         fn();
@@ -39,17 +39,6 @@ features.forEach((feature) => {
         console.error("error: ", e);
     }
 });
-
-setTimeout(() => {
-    const video = document.querySelector("#vjs_video_3_html5_api");
-    if (video) {
-        console.log("find");
-        chrome.storage.local.set({ video });
-        chrome.storage.local.get("video").then(console.log);
-    } else {
-        chrome.storage.local.get("video").then(console.log);
-    }
-}, 2000);
 
 const iframe = document.createElement("iframe");
 iframe.src = "https://cool.ntu.edu.tw/courses/29425/announcements";
@@ -62,7 +51,7 @@ iframe.style.zIndex = "100";
 // document.body.appendChild(iframe);
 const observer = new MutationObserver((mutations) => {
     mutations.forEach((mu) => {
-        console.log("hey");
+        // console.log("hey");
         if (mu.type !== "attributes" || mu.attributeName !== "style") return;
 
         const link: HTMLAnchorElement =

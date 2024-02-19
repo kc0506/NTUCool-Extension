@@ -14,11 +14,14 @@
 		"128": "icons/icon.png"
 	},
 	"permissions": [
-		"storage"
+		"storage",
+		"activeTab",
+		"tabs"
 	],
 	"host_permissions": [],
 	"content_scripts": [
 		{
+			"all_frames": true,
 			"js": [
 				"dist/content.js"
 			],
@@ -31,9 +34,14 @@
 				"https://web2.cc.ntu.edu.tw/*",
 				"https://if163.aca.ntu.edu.tw/*",
 				"https://ntumail.cc.ntu.edu.tw/*",
-				"https://wmail1.cc.ntu.edu.tw/rc/index.php"
+				"https://wmail1.cc.ntu.edu.tw/rc/index.php",
+				"https://cool-video.dlc.ntu.edu.tw/*"
 			]
 		}
 	],
-	"options_page": "dist/options.html"
+	"options_page": "dist/options.html",
+	"background": {
+		"service_worker": "dist/service-worker.js",
+		"type": "module"
+	}
 }
